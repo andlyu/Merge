@@ -1,3 +1,4 @@
+package symplification;
 
 // move 5.2.4.1.1.1  to names in Nouns.txt
 //Names can only be adults in NOuns.txt
@@ -12,7 +13,7 @@ import java.io.*;
 
 public class Clause {
 
-	private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
+	//private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
 
 	private NounPhrase classNoun;
 	private VerbPhrase classVerb;

@@ -1,3 +1,4 @@
+package symplification;
 import simplenlg.framework.*;
 import simplenlg.lexicon.*;
 import simplenlg.realiser.english.*;
@@ -9,7 +10,7 @@ import java.io.*;
 // Mistake : only one verb
 public class VerbPhrase {
 
-	private static final String VERB_FILE = "random-text-gen-master/src/main/java/Verb.txt";
+	private static final String VERB_FILE = "random-text-gen-master/src/main/java/VerbSymple.txt";
 
 	private String classVerb;// long, with all of the information
 	private String phrase;

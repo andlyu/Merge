@@ -1,3 +1,4 @@
+package symplification;
 import simplenlg.framework.*;
 import simplenlg.lexicon.*;
 import simplenlg.realiser.english.*;
@@ -8,8 +9,8 @@ import java.util.*;
 
 public class Noun {
 
-	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/Noun.txt";
-	private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
+	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/NounSymple.txt";
+//	private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
 
 	// part NLG
 	private static Lexicon lexicon = Lexicon.getDefaultLexicon();
