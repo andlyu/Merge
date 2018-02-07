@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="random-text-gen-master/src/main/java/|random-text-gen-master/src/test/java/|ParsedTexts/" kind="src" path=""/>
+	<classpathentry kind="src" path="ParsedTexts"/>
+	<classpathentry kind="src" path="random-text-gen-master/src/main/java"/>
+	<classpathentry kind="src" path="random-text-gen-master/src/test/java"/>
+	<classpathentry kind="output" path="Eclipse/bin"/>
+</classpath>

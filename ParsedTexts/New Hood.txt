@@ -1,0 +1,1 @@
+(ROOT (S (S (NP (DT The) (NNP Wolf)) (VP (VBD pulled) (NP (DT the) (NN bobbin)))) (, ,) (CC and) (S (NP (DT the) (NN door)) (VP (VBD opened))) (. .)))
