@@ -10,7 +10,11 @@ import simplenlg.features.*;
 import java.util.*;
 import java.io.*;
 
+
 public class Clause {
+	
+	private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
+	
    private NounPhrase classNoun;
    private VerbPhrase classVerb;
    private SPhraseSpec sent;
@@ -66,7 +70,7 @@ public class Clause {
    }
 
    public static void main(String[] args) throws IOException {
-      Scanner input = new Scanner(new FileReader("Adjective.txt"));
+      Scanner input = new Scanner(new FileReader(ADJ_FILE));
    
       System.out.println();
       Clause c = new Clause();
@@ -396,7 +400,7 @@ public class Clause {
    }
 
    public static String ranAdj(String[] a, boolean whole) throws IOException {
-      Scanner input = new Scanner(new FileReader("Adjective.txt"));
+      Scanner input = new Scanner(new FileReader(ADJ_FILE));
       ArrayList<String> verbs = new ArrayList();
       while (input.hasNext())
          verbs.add(input.nextLine());

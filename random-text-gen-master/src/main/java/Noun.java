@@ -9,6 +9,10 @@ import java.util.*;
 
 public class Noun
 {
+	
+	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/Noun.txt";
+	private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
+
    //part NLG
    private static Lexicon lexicon = Lexicon.getDefaultLexicon();
    private static NLGFactory nlgFactory = new NLGFactory(lexicon);
@@ -82,7 +86,7 @@ public class Noun
    
    public static String ranNoun(boolean whole)throws IOException
    {
-      Scanner input = new Scanner(new FileReader("Noun.txt"));
+      Scanner input = new Scanner(new FileReader(NOUN_FILE));
       ArrayList<String> nouns= new ArrayList();
       while(input.hasNext())
          nouns.add(input.nextLine());
@@ -96,7 +100,7 @@ public class Noun
       //whole means whetehr to return whole noun defenition
    public static String ranNoun(String [] a, boolean whole)throws IOException
    {
-      Scanner input = new Scanner(new FileReader("Noun.txt"));
+      Scanner input = new Scanner(new FileReader(NOUN_FILE));
       ArrayList<String> nouns= new ArrayList();
       while(input.hasNext())
          nouns.add(input.nextLine());
@@ -116,7 +120,7 @@ public class Noun
       //whole means whetehr to return whole noun defenition
    public static String ranNoun(String [] a,String [] group, boolean whole)throws IOException//WORK
    {
-      Scanner input = new Scanner(new FileReader("Noun.txt"));
+      Scanner input = new Scanner(new FileReader(NOUN_FILE));
       ArrayList<String> nouns= new ArrayList();
       group = onlyNot(group); // goes to only "!"
       while(input.hasNext())
@@ -180,7 +184,7 @@ public class Noun
       }
    
       ArrayList<String> all = new ArrayList();//IMPROVE: all and some are extra
-      Scanner input= new Scanner (new FileReader("Noun.txt"));
+      Scanner input= new Scanner (new FileReader(NOUN_FILE));
       {
          String a = null; // to store input
          String [] some = null; // some of the adjective IDs
@@ -229,7 +233,7 @@ public class Noun
    
    public static String ranAdj(String [] a, boolean whole)throws IOException
    {
-      Scanner input = new Scanner(new FileReader("Adjective.txt"));
+      Scanner input = new Scanner(new FileReader(ADJ_FILE));
       ArrayList<String> verbs= new ArrayList();
       while(input.hasNext())
          verbs.add(input.nextLine());
@@ -264,7 +268,7 @@ public class Noun
       }
    
       ArrayList all = new ArrayList();
-      Scanner input= new Scanner (new FileReader("Noun.txt"));
+      Scanner input= new Scanner (new FileReader(NOUN_FILE));
       {
          String a = null; // to store input
          String [] some = null; // some of the adjective IDs

@@ -9,6 +9,10 @@ import java.io.*;
 // Mistake : only one verb
 public class VerbPhrase
 {
+	
+	private static final String VERB_FILE =  "random-text-gen-master/src/main/java/Verb.txt";
+
+	
    private String classVerb;//long, with all of the information
    private String phrase;
    
@@ -84,7 +88,7 @@ public class VerbPhrase
       }
    
       ArrayList<String> all = new ArrayList();//IMPROVE: all and some are extra
-      Scanner input= new Scanner (new FileReader("Verb.txt"));
+      Scanner input= new Scanner (new FileReader(VERB_FILE));
       {
          String a = null; // to store input
          String [] some = null; // some of the adjective IDs
@@ -118,7 +122,7 @@ public class VerbPhrase
    //Pre: a is a whole noun whihc a verb can describe doing an action
    //Post: randomly chooses a verb which that thing can be doing
    public void verbOnNoun(String a)throws IOException {
-      Scanner input = new Scanner(new FileReader("Verb.txt"));
+      Scanner input = new Scanner(new FileReader(VERB_FILE));
       ArrayList<String> verbs= new ArrayList();
       while(input.hasNext())
          verbs.add(input.nextLine());
@@ -144,7 +148,7 @@ public class VerbPhrase
    //retruns an verb out of an array of array a
    public static String ranVerb(String [] a, boolean whole)throws IOException
    {
-      Scanner input = new Scanner(new FileReader("Verb.txt"));
+      Scanner input = new Scanner(new FileReader(VERB_FILE));
       ArrayList<String> verbs= new ArrayList();
       while(input.hasNext())
          verbs.add(input.nextLine());
