@@ -2,7 +2,7 @@
 import java.io.*;
 import java.util.*;
 public class FindConnections2{
-   public static void main(String [] args)throws IOException{
+   public static void main(String [] args)throws IOException{ 
       Scanner input = null;
       BufferedWriter writer = new BufferedWriter(new FileWriter("AllWords.txt"));
       Scanner nounInput = new Scanner(new FileReader("Big Nouns.txt"));
