@@ -13,7 +13,10 @@ import java.io.*;
 
 public class Clause {
 
-	//private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
+	private static final String ADJ_FILE = null; // "random-text-gen-master/src/main/java/Adjective.txt";
+	private static final String PREP_FILE = null; // "random-text-gen-master/src/main/java/Preposition.txt";
+	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/NounSymple.txt";
+	private static final String VERB_FILE = "random-text-gen-master/src/main/java/VerbSymple.txt";
 
 	private NounPhrase classNoun;
 	private VerbPhrase classVerb;
@@ -69,8 +72,14 @@ public class Clause {
 		return (realiser.realiseSentence(sent));
 	}
 
-	public static void main(String[] args) throws IOException {
-		Scanner input = new Scanner(new FileReader(ADJ_FILE));
+	public static void main(String[] args) {
+		Scanner input = null;
+		try {
+			if (ADJ_FILE != null)
+				input = new Scanner(new FileReader(ADJ_FILE));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		System.out.println();
 		Clause c = new Clause();
@@ -82,11 +91,11 @@ public class Clause {
 				if (d.getObjectNoun() != null) {
 					if (Math.random() < .5) {
 						c = new Clause(d.getObjectNoun());// waistfull
-						c.adjClause();
+						// c.adjClause();
 						System.out.println(c.toString());
 					}
 				}
-				d.adjClause();
+				// d.adjClause();
 			} else if (d.getObjectNoun() != null)
 				d = new Clause(d.getObjectNoun());
 			else if (Math.random() < .5) {
@@ -103,7 +112,12 @@ public class Clause {
 
 		for (int i = 0; i < 0; i++)// TEMPorary
 		{
-			SPhraseSpec ind = makeSentance();
+			try {
+				SPhraseSpec ind = makeSentance();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Clause a = new Clause();
 			System.out.println(a.getClassVerb());
 			System.out.println(a.getClassNoun());
@@ -123,6 +137,7 @@ public class Clause {
 		try {
 			VerbPhrase v2 = new VerbPhrase();
 			classVerb = v2; // Sets classVerb
+			System.out.println(v2);
 			SPhraseSpec p;
 			// SPhraseSpec dep = null;
 			if (posNouns(v2.getClassVerb()).contains("-"))// if(verb is transitive)
@@ -156,9 +171,10 @@ public class Clause {
 				 */
 			}
 			// changing preposition
-			classPrep = new PrepPhrase(classVerb, classNoun);
+			if (classVerb.canHavePreposition() && classNoun.canHavePreposition()) {
+				classPrep = new PrepPhrase(classVerb, classNoun);
 			if (Math.random() < .5)
-				sent.addComplement(classPrep.getPrepPhrase());
+				sent.addComplement(classPrep.getPrepPhrase());}
 
 			/*
 			 * if(v2.getClassVerb().contains("/"))// temporary { int prepI = (int)(
@@ -178,7 +194,7 @@ public class Clause {
 			 */
 
 			String output = realiser.realiseSentence(p);
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			ex.printStackTrace();
 
@@ -207,12 +223,12 @@ public class Clause {
 				objectNoun = null;
 			}
 
-			classPrep = new PrepPhrase(classVerb, classNoun);
-			if (Math.random() < .5)
-				sent.addComplement(classPrep.getPrepPhrase());
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+			if (classNoun.canHavePreposition() && classVerb.canHavePreposition()) {
+				classPrep = new PrepPhrase(classVerb, classNoun);
+				if (Math.random() < .5)
+					sent.addComplement(classPrep.getPrepPhrase());
+			}
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("error line 160");
 		}
@@ -221,37 +237,27 @@ public class Clause {
 
 	public Clause(VerbPhrase a)// WORK
 	{
-		try {
-			classVerb = a;
-			classNoun = new NounPhrase();
-			classNoun.manyNounSbjs(a.getClassVerb());
-			if (a.isTransitive()) {
-				objectNoun = new NounPhrase();
-				objectNoun.manyNounObjs(a.getClassVerb());
-				sent = nlgFactory.createClause(classNoun.getPhrase(), classVerb.getPhrase(), objectNoun.getPhrase());
-			} else {
-				sent = nlgFactory.createClause(classNoun.getPhrase(), classVerb.getPhrase());
-			}
-			classPrep = new PrepPhrase(classVerb, classNoun);
-			if (Math.random() < .5)
-				sent.addComplement(classPrep.getPrepPhrase());
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
-
+		classVerb = a;
+		classNoun = new NounPhrase();
+		classNoun.manyNounSbjs(a.getClassVerb());
+		if (a.isTransitive()) {
+			objectNoun = new NounPhrase();
+			objectNoun.manyNounObjs(a.getClassVerb());
+			sent = nlgFactory.createClause(classNoun.getPhrase(), classVerb.getPhrase(), objectNoun.getPhrase());
+		} else {
+			sent = nlgFactory.createClause(classNoun.getPhrase(), classVerb.getPhrase());
 		}
+		if (classNoun.canHavePreposition() && classVerb.canHavePreposition()) {
+			classPrep = new PrepPhrase(classVerb, classNoun);
+		if (Math.random() < .5)
+			sent.addComplement(classPrep.getPrepPhrase());}
+
 	}
 
 	public void adjClause() {
-		try {
-			classVerb = new VerbPhrase(VerbPhrase.ranVerb(new String[] { "2.4" }, true));
-			sent = nlgFactory.createClause(classNoun.getPhrase(), classVerb.getPhrase(),
-					NounPhrase.ranAdj(NounPhrase.nounToAdj(classNoun.getClassNoun()), false));
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+		classVerb = new VerbPhrase(VerbPhrase.ranVerb(new String[] { "2.4" }, true));
+		sent = nlgFactory.createClause(classNoun.getPhrase(), classVerb.getPhrase(),
+				NounPhrase.ranAdj(NounPhrase.nounToAdj(classNoun.getClassNoun()), false));
 	}
 
 	public static String ranDet() {
@@ -265,7 +271,7 @@ public class Clause {
 	}
 
 	// Adds preposition phrase to the clause
-	public void addPrepositionPhrase() throws IOException {// WORK
+	public void addPrepositionPhrase() {// WORK
 		PPPhraseSpec pp = null;
 		int prepI = (int) (Math.random() * posPreps(classVerb.getClassVerb()).split("--").length);// prepI = instance of
 																									// prep in verb Def
@@ -286,16 +292,27 @@ public class Clause {
 
 	}
 
-	public static String ranNoun() throws IOException {
-		Scanner input = new Scanner(new FileReader("Noun.txt"));
+	public static String ranNoun() {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
 		return nouns.get((int) (Math.random() * nouns.size())).split(" ")[1];
 	}
 
-	public static String ranPlace() throws IOException {
-		Scanner input = new Scanner(new FileReader("Noun.txt"));
+	public static String ranPlace() {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
@@ -307,8 +324,14 @@ public class Clause {
 		return places.get((int) (Math.random() * places.size())).split(" ")[1];
 	}
 
-	public static String ranLife() throws IOException {
-		Scanner input = new Scanner(new FileReader("Noun.txt"));
+	public static String ranLife() {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
@@ -324,8 +347,13 @@ public class Clause {
 
 	// returns a noun whose identification begins with one of the a array numbers;
 	// returns only 1 word
-	public static String ranNoun(String[] a) throws IOException {
-		Scanner input = new Scanner(new FileReader("Noun.txt"));
+	public static String ranNoun(String[] a) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
@@ -339,8 +367,13 @@ public class Clause {
 	}
 
 	// whole means whetehr to return whole noune defenition
-	public static String ranNoun(String[] a, boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader("Noun.txt"));
+	public static String ranNoun(String[] a, boolean whole) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
@@ -355,8 +388,14 @@ public class Clause {
 		return noun.get((int) (Math.random() * noun.size()));
 	}
 
-	public static String ranVerb(String[] a, boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader("Verb.txt"));
+	public static String ranVerb(String[] a, boolean whole) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(VERB_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> verbs = new ArrayList();
 		while (input.hasNext())
 			verbs.add(input.nextLine());
@@ -373,8 +412,14 @@ public class Clause {
 
 	// returns a random Preposition
 
-	public static String ranPrep(String[] a) throws IOException {
-		Scanner input = new Scanner(new FileReader("Preposition.txt"));
+	public static String ranPrep(String[] a) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(PREP_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> preps = new ArrayList();
 		for (int i = 0; i < a.length; i++)
 			a[i] = a[i].split("-")[0]; // ugly code, doesn't follow format
@@ -389,8 +434,13 @@ public class Clause {
 		return prep.get((int) (Math.random() * prep.size())).split(" ")[1];
 	}
 
-	public static String ranPrep(String[] a, boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader("Preposition.txt"));
+	public static String ranPrep(String[] a, boolean whole) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(PREP_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		ArrayList<String> preps = new ArrayList();
 		for (int i = 0; i < a.length; i++)
 			a[i] = a[i].split("-")[0]; // ugly code, doesn't follow format
@@ -407,8 +457,14 @@ public class Clause {
 		return prep.get((int) (Math.random() * prep.size()));
 	}
 
-	public static String ranAdj(String[] a, boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader(ADJ_FILE));
+	public static String ranAdj(String[] a, boolean whole) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(ADJ_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> verbs = new ArrayList();
 		while (input.hasNext())
 			verbs.add(input.nextLine());
@@ -441,8 +497,13 @@ public class Clause {
 	}
 
 	// retruns prep with certain ID
-	private static String certPrep(String a) throws IOException {
-		Scanner input = new Scanner(new FileReader("Preposition.txt"));
+	private static String certPrep(String a) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(PREP_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		String prep;
 		while (input.hasNext()) {
 			prep = input.nextLine();
@@ -463,7 +524,7 @@ public class Clause {
 
 	// returns a String [] of adjective indecies which corelate with the noun
 	// I THINK THIS IS WRONG
-	public static String[] nounToAdj(String n) throws IOException {
+	public static String[] nounToAdj(String n) {
 
 		String iD = n.split(" ")[0];
 		String[] iDs = iD.split("\\.");// makes the array of the total number of IDs, not the right iDs
@@ -475,7 +536,12 @@ public class Clause {
 		}
 
 		ArrayList all = new ArrayList();
-		Scanner input = new Scanner(new FileReader("Noun.txt"));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		{
 			String a = null; // to store input
 			String[] some = null; // some of the adjective IDs
@@ -499,7 +565,7 @@ public class Clause {
 	}
 
 	// returns a String [] of Verbs indecies which corelate with the noun
-	public static String[] nounToVerb(String n) throws IOException {
+	public static String[] nounToVerb(String n) {
 
 		String iD = n.split(" ")[0];
 		String[] iDs = iD.split("\\.");// makes the array of the total number of IDs, not the right iDs
@@ -511,7 +577,13 @@ public class Clause {
 		}
 
 		ArrayList all = new ArrayList();
-		Scanner input = new Scanner(new FileReader("Verb.txt"));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(VERB_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		{
 			String a = null; // to store input
 			String[] some = null; // some of the adjective IDs
@@ -536,7 +608,7 @@ public class Clause {
 		return out;
 	}
 
-	public static SPhraseSpec makeSentance() throws IOException {
+	public static SPhraseSpec makeSentance() {
 		VerbPhrase v2 = new VerbPhrase();
 		SPhraseSpec p;
 		String n2 = "";
@@ -592,7 +664,7 @@ public class Clause {
 		return p;
 	}
 
-	public SPhraseSpec clauseOnVerb(String v1) throws IOException
+	public SPhraseSpec clauseOnVerb(String v1)
 
 	{
 		SPhraseSpec p;
@@ -626,7 +698,7 @@ public class Clause {
 
 	// returns a clause where the subject is the noun sent
 	// pre: n1 is the full length of noun
-	public static SPhraseSpec clauseOnNoun(String n1) throws IOException
+	public static SPhraseSpec clauseOnNoun(String n1)
 
 	{
 		SPhraseSpec p;

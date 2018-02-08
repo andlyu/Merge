@@ -10,7 +10,7 @@ import simplenlg.features.*;
 public class PrepPhrase
 {
 	
-	//private static final String PREP_FILE = "random-text-gen-master/src/main/java/Preposition.txt";
+	private static final String PREP_FILE =null; // "random-text-gen-master/src/main/java/Preposition.txt";
 
 	
    private NounPhrase place;
@@ -80,8 +80,8 @@ public class PrepPhrase
          prepPhrase.addComplement(place.toNPPhraseSpec());
          prepPhrase.setPreposition(classPreposition.split(" ")[1]);
       }
-      catch(IOException ex){
-         System.out.print("HOOPA");
+      catch(IOException e){
+    	  e.printStackTrace();
       }
    }
    

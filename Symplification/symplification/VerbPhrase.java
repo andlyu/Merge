@@ -49,7 +49,8 @@ public class VerbPhrase {
 	public VerbPhrase() {
 		try {
 			phrase = oneVerb();
-		} catch (IOException ex) {
+		} catch ( Exception e) {
+			e.printStackTrace();
 			System.out.println("manyNounSbjs() is Wrong");
 		}
 	}
@@ -61,7 +62,7 @@ public class VerbPhrase {
 
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args){
 		for (int i = 0; i < 100; i++) {
 			VerbPhrase a = new VerbPhrase();
 			a.verbOnNoun("7.3.1 one");
@@ -70,7 +71,7 @@ public class VerbPhrase {
 		}
 	}
 
-	private String oneVerb() throws IOException {
+	private String oneVerb()   {
 		classVerb = ranVerb(new String[] { "1", "2" }, true);
 		return classVerb.split(" ")[1];
 	}
@@ -82,9 +83,10 @@ public class VerbPhrase {
 	}
 
 	// pre: noun is a whole noun
-	// post: returns up-groups associated with the noun (groups which the noun must
+	// post: returns up-groups associated with the noun (groups which the noun must also
 	// be)
-	public String[] upGroups() throws IOException {
+	//?? does it count itself as well?
+	public String[] upGroups(){
 		String n = classVerb;
 		String iD = n.split(" ")[0];
 		String[] iDs = iD.split("\\.");// makes the array of the total number of IDs, not the right iDs
@@ -96,7 +98,12 @@ public class VerbPhrase {
 		}
 
 		ArrayList<String> all = new ArrayList();// IMPROVE: all and some are extra
-		Scanner input = new Scanner(new FileReader(VERB_FILE));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(VERB_FILE));
+		} catch (FileNotFoundException e1) {
+ 			e1.printStackTrace();
+		}
 		{
 			String a = null; // to store input
 			String[] some = null; // some of the adjective IDs
@@ -126,10 +133,15 @@ public class VerbPhrase {
 
 	}
 
-	// Pre: a is a whole noun whihc a verb can describe doing an action
+	// Pre: a is a whole noun which a verb can describe doing an action
 	// Post: randomly chooses a verb which that thing can be doing
-	public void verbOnNoun(String a) throws IOException {
-		Scanner input = new Scanner(new FileReader(VERB_FILE));
+	public void verbOnNoun(String a)  {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(VERB_FILE));
+		} catch (FileNotFoundException e) {
+ 			e.printStackTrace();
+		}
 		ArrayList<String> verbs = new ArrayList();
 		while (input.hasNext())
 			verbs.add(input.nextLine());
@@ -148,11 +160,29 @@ public class VerbPhrase {
 		phrase = classVerb.split(" ")[1];
 	}
 
+	/**
+	 * @return true if the verb (or higher-class-verbs) has information about what prepositions it can be used
+	 */
+	public boolean canHavePreposition() {
+		if(classVerb.contains("/"))
+			return true;
+		for(String a: upGroups()) {
+			if(a.contains("/"))
+				return true;
+		}
+		return false;
+	}
+	
 	// pre:: a are the id's of the beginning of ID's of verbs,
 	// if whole then returns the whole identity of teh verb
 	// retruns an verb out of an array of array a
-	public static String ranVerb(String[] a, boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader(VERB_FILE));
+	public static String ranVerb(String[] a, boolean whole)   {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(VERB_FILE));
+		} catch (FileNotFoundException e) {
+ 			e.printStackTrace();
+		}
 		ArrayList<String> verbs = new ArrayList();
 		while (input.hasNext())
 			verbs.add(input.nextLine());

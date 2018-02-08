@@ -204,4 +204,5 @@
 -10.3 abstract P
 -10.4 Name P
 -10.5 activity P
--10.6 knowlege P
+-10.6 knowledge P
+-11 explanation (iD) (Noun) (P = placeHolder for adjectives) (groups noun also it belongs)

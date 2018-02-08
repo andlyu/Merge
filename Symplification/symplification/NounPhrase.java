@@ -6,13 +6,12 @@ import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 import java.util.*;
 import java.io.*;
-import java.io.FileReader;
 //mistake = off of only one noun
 
 public class NounPhrase {
 
 	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/NounSymple.txt";
-	//private static final String ADJ_FILE = "random-text-gen-master/src/main/java/Adjective.txt";
+	private static final String ADJ_FILE = null;  //"random-text-gen-master/src/main/java/Adjective.txt";
 
 	private String classNoun;// long, with all of the information
 	private CoordinatedPhraseElement phrase;
@@ -24,8 +23,8 @@ public class NounPhrase {
 	public NounPhrase() {
 		try {
 			phrase = manyNounSbjs();
-		} catch (IOException ex) {
-			System.out.println("manyNounSbjs() is Wrong");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -50,7 +49,6 @@ public class NounPhrase {
 			phrase = n1p;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("manyNounSbjs() is Wrong");
 		}
 	}
 
@@ -103,16 +101,27 @@ public class NounPhrase {
 		return a.split(" ")[1];
 	}
 
-	public static String ranNoun() throws IOException {
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+	public static String ranNoun(){
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
 		return nouns.get((int) (Math.random() * nouns.size())).split(" ")[1];
 	}
 
-	public static String ranNoun(boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+	public static String ranNoun(boolean whole){
+		Scanner input= null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
@@ -125,8 +134,14 @@ public class NounPhrase {
 
 	// returns a noun whose identification begins with one of the a array numbers;
 	// returns only 1 word
-	public static String ranNoun(String[] a) throws IOException {
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+	public static String ranNoun(String[] a) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
@@ -140,8 +155,13 @@ public class NounPhrase {
 	}
 
 	// whole means whetehr to return whole noun defenition
-	public static String ranNoun(String[] a, boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+	public static String ranNoun(String[] a, boolean whole){
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		while (input.hasNext())
 			nouns.add(input.nextLine());
@@ -158,9 +178,15 @@ public class NounPhrase {
 
 	// pre: a is array of possible numbers, b is the group the noun must have
 	// whole means whetehr to return whole noun defenition
-	public static String ranNoun(String[] a, String[] group, boolean whole) throws IOException// WORK
+	public static String ranNoun(String[] a, String[] group, boolean whole) 
 	{
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		group = onlyNot(group); // goes to only "!"
 		while (input.hasNext())
@@ -226,8 +252,14 @@ public class NounPhrase {
 	}
 
 	// returns a random Adjective
-	public static String ranAdj(String[] a, boolean whole) throws IOException {
-		Scanner input = new Scanner(new FileReader(ADJ_FILE));
+	public static String ranAdj(String[] a, boolean whole){
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(ADJ_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> verbs = new ArrayList();
 		while (input.hasNext())
 			verbs.add(input.nextLine());
@@ -309,7 +341,7 @@ public class NounPhrase {
 
 	// returns a String [] of adjective indecies which corelate with the noun
 	// I THINK THIS IS WRONG
-	public static String[] nounToAdj(String n) throws IOException {
+	public static String[] nounToAdj(String n){
 
 		String iD = n.split(" ")[0];
 		String[] iDs = iD.split("\\.");// makes the array of the total number of IDs, not the right iDs
@@ -321,7 +353,12 @@ public class NounPhrase {
 		}
 
 		ArrayList all = new ArrayList();
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		{
 			String a = null; // to store input
 			String[] some = null; // some of the adjective IDs
@@ -334,8 +371,6 @@ public class NounPhrase {
 							some = a.split(" ")[2].split(",");
 					} catch (Exception e) {
 						e.printStackTrace();
-						System.out
-								.println(a + "HEHEHEHHEHEHEHEHEHHEHEHEHHEHHEHEHEHHEHEHEHHEHHEHEHEHHEHEHEHHEHHEHHEHEH");
 					}
 					if (some == null)
 						return null;
@@ -380,7 +415,7 @@ public class NounPhrase {
 
 	// creates a "noun phrase" with many subjects and adjectives around which all
 	// agree with v1 (WHOLE)
-	public CoordinatedPhraseElement manyNouns(String v1) throws IOException {
+	public CoordinatedPhraseElement manyNouns(String v1) {
 		CoordinatedPhraseElement n1p = new CoordinatedPhraseElement();
 		for (int i = likely(); i >= 0; i--) {
 			String n1 = ranNoun(posNouns(v1).split("-")[0].split(","), true);// subject of sentance
@@ -394,6 +429,7 @@ public class NounPhrase {
 				n3p.setDeterminer(ranDet());// ads determiner for small indexes
 
 			///// next two lines give adj
+			if(canHaveModifiers())
 			for (int j = likely(); j > 0; j--)
 				n3p.addPreModifier(ranAdj(nounToAdj(n1), false));
 			n1p.addCoordinate(n3p);
@@ -404,13 +440,13 @@ public class NounPhrase {
 	}
 
 	// Pre: n1p is NPPhraseSpec to which to add the adj, n1 is the NounWord
-	public static void addAdj(NPPhraseSpec n1p, String n1) throws IOException {
+	public static void addAdj(NPPhraseSpec n1p, String n1)  {
 		for (int j = likely(); j > 0; j--)
 			n1p.addPreModifier(ranAdj(nounToAdj(n1), false));
 
 	}
 
-	public CoordinatedPhraseElement manyNounSbjs() throws IOException {
+	public CoordinatedPhraseElement manyNounSbjs() {
 		CoordinatedPhraseElement n1p = new CoordinatedPhraseElement();
 		for (int i = likely(); i >= 0; i--) {
 			String n1 = ranNoun(true);// subject of sentance
@@ -424,6 +460,7 @@ public class NounPhrase {
 				n3p.setDeterminer(ranDet());// ads determiner for small indexes
 
 			///// next two lines give adj
+			if(canHaveModifiers())
 			for (int j = likely(); j > 0; j--)
 				n3p.addPreModifier(ranAdj(nounToAdj(n1), false));
 			n1p.addCoordinate(n3p);
@@ -436,7 +473,7 @@ public class NounPhrase {
 	// pre: v = verb aroun which to make the noun
 	// post: changes NounPhrase to be built on the verb, all nouns agree with the
 	// verb
-	public CoordinatedPhraseElement manyNounSbjs(String v) throws IOException {
+	public CoordinatedPhraseElement manyNounSbjs(String v) {
 		CoordinatedPhraseElement n1p = new CoordinatedPhraseElement();
 		for (int i = likely(); i >= 0; i--) {
 			String n1 = ranNoun(posNouns(v).split("-")[0].split(","), true);// subject of sentance
@@ -461,7 +498,7 @@ public class NounPhrase {
 	// pre: v = verb aroun which to make the noun
 	// post: changes NounPhrase to be built on the verb, all nouns agree with the
 	// verb
-	public CoordinatedPhraseElement manyNounObjs(String v) throws IOException {
+	public CoordinatedPhraseElement manyNounObjs(String v) {
 
 		CoordinatedPhraseElement n1p = new CoordinatedPhraseElement();
 		for (int i = likely(); i >= 0; i--) {
@@ -505,9 +542,15 @@ public class NounPhrase {
 
 	// pre: word is whole noun
 	// post: retuns an array of all other nouns with it's id at the beginning
-	public static String[] child(String noun) throws IOException {
+	public static String[] child(String noun)  {
 		String id = noun.split(" ")[0];
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> nouns = new ArrayList();
 		nouns.add(noun);
 		while (input.hasNext()) {
@@ -524,7 +567,7 @@ public class NounPhrase {
 
 	// pre: noun is a whole noun
 	// post: returns sub-groups associated with the noun
-	public static String[] subGroups(String noun) throws IOException {
+	public static String[] subGroups(String noun)  {
 		List<String> all = Arrays.asList(child(noun));
 		List<String> out = new ArrayList();
 		for (int i = 0; i < all.size(); i++) {
@@ -538,7 +581,7 @@ public class NounPhrase {
 	// pre: noun is a whole noun
 	// post: returns up-groups associated with the noun (groups which the noun must
 	// be)
-	public static String[] upGroups(String n) throws IOException {
+	public static String[] upGroups(String n)  {
 		String iD = n.split(" ")[0];
 		String[] iDs = iD.split("\\.");// makes the array of the total number of IDs, not the right iDs
 		int count = 0;
@@ -549,7 +592,13 @@ public class NounPhrase {
 		}
 
 		ArrayList<String> all = new ArrayList();// IMPROVE: all and some are extra
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		{
 			String a = null; // to store input
 			String[] some = null; // some of the adjective IDs
@@ -582,7 +631,7 @@ public class NounPhrase {
 	// pre: noun is a whole noun
 	// post: returns up-groups associated with the noun (groups which the noun must
 	// be)
-	public static String[] allGroups(String n) throws IOException {
+	public static String[] allGroups(String n)  {
 		String iD = n.split(" ")[0];
 		String[] iDs = iD.split("\\.");// makes the array of the total number of IDs, not the right iDs
 		int count = 0;
@@ -593,7 +642,11 @@ public class NounPhrase {
 		}
 
 		ArrayList<String> all = new ArrayList();// IMPROVE: all and some are extra
-		Scanner input = new Scanner(new FileReader(NOUN_FILE));
+		Scanner input = null;
+		try {
+			input = new Scanner(new FileReader(NOUN_FILE));
+		} catch (FileNotFoundException e1) {
+		}
 		{
 			String a = null; // to store input
 			String[] some = null; // some of the adjective IDs
@@ -627,4 +680,23 @@ public class NounPhrase {
 
 	}
 
+	/**
+	 * @return true (info does not come from the noun)
+	 */
+	public boolean canHavePreposition() {
+		return true;
+	}
+	
+	/**
+	 * @return true if the noun (or higher-class-nouns) has information about what adjectives are possible
+	 */
+	public boolean canHaveModifiers() {
+		if(classNoun.split(" ").length > 2)
+			return true;
+		for(String a: upGroups(classNoun)) {
+			if(classNoun.split(" ").length > 2)
+				return true;
+		}
+		return false;
+	}
 }
