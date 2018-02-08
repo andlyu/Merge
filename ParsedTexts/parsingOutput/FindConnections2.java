@@ -3,22 +3,27 @@ package parsingOutput;
 import java.io.*;
 import java.util.*;
 public class FindConnections2{
+	public static final String VERB_FILE = "ParsedTexts/Big Verbs.txt";
+	public static final String NOUN_FILE = "ParsedTexts/Big Nouns.txt";
+	public static final String ENCYCLOPEDIA = "ParsedTexts/World-Book-Encyclopedia.txt";
+	public static final String ALL_WORD_OUT = "ParsedTexts/AllWords.txt";
+	
    public static void main(String [] args)throws IOException{
       Scanner input = null;
-      BufferedWriter writer = new BufferedWriter(new FileWriter("AllWords.txt"));
-      Scanner nounInput = new Scanner(new FileReader("Big Nouns.txt"));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(ALL_WORD_OUT));
+      Scanner nounInput = new Scanner(new FileReader(NOUN_FILE));
       HashMap<String, NounWithVerbs> nouns = new HashMap<>();
       HashSet<String> wholeNounCollecton = new HashSet<>();
       while( nounInput.hasNext()){
          wholeNounCollecton.add(nounInput.nextLine().split(" ")[5]);
       }
-      Scanner verbInput = new Scanner(new FileReader("Big Verbs.txt"));
+      Scanner verbInput = new Scanner(new FileReader(VERB_FILE));
       HashSet<String> wholeVerbCollecton = new HashSet<>();
       while( verbInput.hasNext()){
          wholeVerbCollecton.add(verbInput.nextLine().split(" ")[5]);
       }
       try{
-         input = new Scanner(new FileReader("World-Book-Encyclopedia.txt"));         
+         input = new Scanner(new FileReader(ENCYCLOPEDIA));         
       } catch(Exception e){
          e.printStackTrace();
       }
@@ -112,25 +117,27 @@ public class FindConnections2{
    
    public static HashMap infoFromParsed(){
       Scanner input = null;
-      BufferedWriter writer = null; // new BufferedWriter(new FileWriter("AllWords.txt"));
-      Scanner nounInput =  null; //new Scanner(new FileReader("Big Nouns.txt"));
+      Scanner verbInput = null;
+      BufferedWriter writer = null; // new BufferedWriter(new FileWriter(ALL_WORD_OUT));
+      Scanner nounInput =  null; //new Scanner(new FileReader(NOUN_FILE));
       HashMap<String, NounWithVerbs> nouns = new HashMap<>();
       HashSet<String> wholeNounCollecton = new HashSet<>();
+
+      try{
+         verbInput =   new Scanner(new FileReader(VERB_FILE));
+         writer =  new BufferedWriter(new FileWriter(ALL_WORD_OUT));
+         nounInput = new Scanner(new FileReader(NOUN_FILE));
+         input = new Scanner(new FileReader(ENCYCLOPEDIA));  
+       
+      } catch(Exception e){
+         e.printStackTrace();
+      }
       while( nounInput.hasNext()){
          wholeNounCollecton.add(nounInput.nextLine().split(" ")[5]);
       }
-      Scanner verbInput = null; //  new Scanner(new FileReader("Big Verbs.txt"));
       HashSet<String> wholeVerbCollecton = new HashSet<>();
       while( verbInput.hasNext()){
          wholeVerbCollecton.add(verbInput.nextLine().split(" ")[5]);
-      }
-      try{
-         verbInput =   new Scanner(new FileReader("Big Verbs.txt"));
-         writer =  new BufferedWriter(new FileWriter("AllWords.txt"));
-         nounInput = new Scanner(new FileReader("Big Nouns.txt"));
-         input = new Scanner(new FileReader("World-Book-Encyclopedia.txt"));         
-      } catch(Exception e){
-         e.printStackTrace();
       }
       String line = "";
    
@@ -194,8 +201,6 @@ public class FindConnections2{
                   if(!noun.toString().contains("(") && !verb.toString().contains("(")){
                      String wordNoun  = noun.getPhrase().toString().toLowerCase();
                      String wordVerb = verb.getPhrase().toString().toLowerCase();
-                     System.out.print("Noun: " + noun.getPhrase());
-                     System.out.println("    Verb: " + verb.getPhrase());
                      if(wholeNounCollecton.contains(wordNoun) && wholeVerbCollecton.contains(wordVerb)){
                         if(nouns.get(wordNoun)!= null){
                            NounWithVerbs curNoun = nouns.get(wordNoun);

@@ -112,7 +112,7 @@ public class FindConnections2{
    public static HashMap infoFromParsed(){
       Scanner input = null;
       BufferedWriter writer = null; // new BufferedWriter(new FileWriter("AllWords.txt"));
-      Scanner nounInput =  null; //new Scanner(new FileReader("Big Nouns.txt"));
+      Scanner nounInput =  new Scanner(new FileReader("Big Nouns.txt"));
       HashMap<String, NounWithVerbs> nouns = new HashMap<>();
       HashSet<String> wholeNounCollecton = new HashSet<>();
       while( nounInput.hasNext()){
