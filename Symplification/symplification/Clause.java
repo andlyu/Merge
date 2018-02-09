@@ -15,8 +15,8 @@ public class Clause {
 
 	private static final String ADJ_FILE = null; // "random-text-gen-master/src/main/java/Adjective.txt";
 	private static final String PREP_FILE = null; // "random-text-gen-master/src/main/java/Preposition.txt";
-	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/NounSymple.txt";
-	private static final String VERB_FILE = "random-text-gen-master/src/main/java/VerbSymple.txt";
+	private static final String NOUN_FILE = "Text Files/Encyclopedia Nouns.txt";//"random-text-gen-master/src/main/java/NounSymple.txt";
+	private static final String VERB_FILE = "Text Files/Encyclopedia Verbs.txt";// "random-text-gen-master/src/main/java/VerbSymple.txt";
 
 	private NounPhrase classNoun;
 	private VerbPhrase classVerb;

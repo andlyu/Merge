@@ -10,9 +10,11 @@ import java.io.*;
 
 public class NounPhrase {
 
-	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/NounSymple.txt";
+//	private static final String NOUN_FILE = "random-text-gen-master/src/main/java/NounSymple.txt";
 	private static final String ADJ_FILE = null;  //"random-text-gen-master/src/main/java/Adjective.txt";
+	private static final String NOUN_FILE = "Text Files/Encyclopedia Nouns.txt";//"random-text-gen-master/src/main/java/NounSymple.txt";
 
+	
 	private String classNoun;// long, with all of the information
 	private CoordinatedPhraseElement phrase;
 

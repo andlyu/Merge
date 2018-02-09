@@ -6,7 +6,6 @@
 0.0.1.1 02097033 39 v 01 horripilate 0 003 @ 02096583 v 0000 + 00854455 n 0107 $ 02097242 v 0000 02 + 09 00 + 10 00 | cause (someone's) hair to stand on end and to have goosebumps; "Hitchcock movies horripilate me"  
 0.0.1.2 02174970 39 v 04 disgust 0 gross_out 0 revolt 0 repel 0 008 @ 02096583 v 0000 + 00242649 a 0402 + 01683681 a 0405 + 01867911 a 0403 + 01684511 a 0408 + 01684511 a 0407 + 07401147 n 0101 ~ 02175248 v 0000 02 + 09 00 + 10 00 | fill with distaste; "This spoilt food disgusts me"  
 0.0.1.2.0 02175248 39 v 03 sicken 0 nauseate 0 turn_one's_stomach 0 004 @ 02174970 v 0000 + 14168673 n 0201 + 07401998 n 0201 + 03248997 n 0204 01 + 10 00 | upset and make nauseated; "The smell of the food turned the pregnant woman's stomach"; "The mold on the food sickened the diners"  
-0.0.1.3 01418709 35 v 01 masturbate 1 003 $ 01418390 v 0000 @ 02096583 v 0000 + 00843595 n 0101 01 + 09 00 | stimulate sexually; "The old man wanted to be masturbated by the prostitute"  
 0.0.1.4 02097635 39 v 03 fellate 0 blow 8 go_down_on 0 002 @ 02096583 v 0000 + 00843109 n 0102 01 + 09 00 | provide sexual gratification through oral stimulation  
 0.0.1.5 02097445 39 v 01 work a 003 $ 01800430 v 0000 $ 01151630 v 0000 @ 02096583 v 0000 02 + 09 00 + 10 00 | provoke or excite; "The rock musician worked the crowd of young girls into a frenzy"  
 0.0.1.6 02097791 39 v 01 thrill 0 003 @ 02096583 v 0000 + 07426064 n 0106 + 06284856 n 0101 02 + 09 00 + 10 00 | cause to be thrilled by some perceptual input; "The men were thrilled by a loud whistle blow"  

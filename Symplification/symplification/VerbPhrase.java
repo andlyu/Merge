@@ -10,7 +10,8 @@ import java.io.*;
 // Mistake : only one verb
 public class VerbPhrase {
 
-	private static final String VERB_FILE = "random-text-gen-master/src/main/java/VerbSymple.txt";
+	//private static final String VERB_FILE = "random-text-gen-master/src/main/java/VerbSymple.txt";
+	private static final String VERB_FILE = "Text Files/Encyclopedia Verbs.txt";// "random-text-gen-master/src/main/java/VerbSymple.txt";
 
 	private String classVerb;// long, with all of the information
 	private String phrase;

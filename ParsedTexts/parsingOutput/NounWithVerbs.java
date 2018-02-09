@@ -22,6 +22,10 @@ public class NounWithVerbs{
       return noun;
    }
    
+   public HashSet<String> getVerbs(){
+	      return verbs;
+	   }
+   
    public String toString(){
       Iterator<String> iterator = verbs.iterator();
       String out =  noun + ":";

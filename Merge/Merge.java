@@ -8,15 +8,13 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import parsingOutput.FindConnections2;
+import parsingOutput.NounWithVerbs;
 
 public class Merge {
 	public static final String NOUN_FILE = "ParsedTexts/Big Nouns.txt";
 	public static final String VERB_FILE = "ParsedTexts/Big Verbs.txt";
 	public static final String NOUN_OUT_FILE = "Text Files/Encyclopedia Nouns.txt";
 	public static final String VERB_OUT_FILE = "Text Files/Encyclopedia Verbs.txt";
-
-	
-
 
 	/**
 	 * @param args
@@ -26,32 +24,34 @@ public class Merge {
 
 		Scanner nounInput = null; // scanners
 		Scanner verbInput = null;
-		PrintWriter NounOutput = null;
+		PrintWriter nounWriter = null;
+		PrintWriter verbWriter = null;
 		LinkedHashMap<String, String> nounLines = new LinkedHashMap<>(); // arrayList with all Nouns
-		LinkedList<String> allNounLines = new LinkedList<>();
 		LinkedHashMap<String, String> verbLines = new LinkedHashMap<>();
-		HashMap<String, Boolean> nounOutput = new HashMap<>();
-		ArrayList<String> repeatingNouns = new ArrayList<>();
-		ArrayList<String> repeatingVerbs = new ArrayList<>();
+		LinkedList<String> allNounLines = new LinkedList<>();
+		LinkedList<String> allVerbLines = new LinkedList<>();
+		HashMap<String, Boolean> nounOutput = new HashMap<>();// Noun is a bit more symple but will change later
+		HashMap<String, String> verbOutput = new HashMap<>();
 
 		try {// Initiates scanners
 			nounInput = new Scanner(new FileReader(NOUN_FILE));
 			verbInput = new Scanner(new FileReader(VERB_FILE));
-			NounOutput =  new PrintWriter(NOUN_OUT_FILE);
+			verbWriter = new PrintWriter(VERB_OUT_FILE);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 		while (nounInput.hasNext()) {//// fills Arrays with all nouns and verbs from file
 			String in = nounInput.nextLine();
-			if(!nounLines.containsKey(in.split(" ")[5]))
-			nounLines.put(in.split(" ")[5], in);
+			if (!nounLines.containsKey(in.split(" ")[5]))
+				nounLines.put(in.split(" ")[5], in);
 			allNounLines.add(in);
 		}
 		while (verbInput.hasNext()) {
 			String in = verbInput.nextLine();
-			if(!verbLines.containsKey(in.split(" ")[5]))
-			verbLines.put(in.split(" ")[5], in);
+			if (!verbLines.containsKey(in.split(" ")[5]))
+				verbLines.put(in.split(" ")[5], in);
+			allVerbLines.add(in);
 
 		}
 
@@ -72,17 +72,43 @@ public class Merge {
 				}
 			}
 		}
-		for (Object noun : allNounLines.toArray()) {
-			String id = ((String)noun).split(" ")[0];
-			if (nounOutput.containsKey(id)) {
-				String[] line = ((String)noun).split(" ");
-				if (!nounOutput.get(id)) {
-					NounOutput.write("-");
+
+		for (String a : connectionMap.keySet()) {
+			// add all verbs and their predisesors
+			/*
+			 * go through the connections add the verb&predisecor to the verbOutput
+			 *
+			 */// TODO what if some stuff already has a negative: double negative
+			Object[] verbs = connectionMap.get(a).getVerbs().toArray(); // verbs coorelating with the noun
+			for (Object verb : verbs) {
+				if (verbLines.containsKey(verb)) {
+					String[] verbLineFrags = verbLines.get(verb).split(" "); // verbLineFragments
+					String curVerbID = verbLineFrags[0];
+					String nounID = nounLines.get(a).split(" ")[0];
+					String wholeVerbDef = verbLineFrags[0] + " " + verbLineFrags[5]+ " " + nounID;
+					if (!verbOutput.containsKey(curVerbID) || verbOutput.get(curVerbID) == null)
+						verbOutput.put(curVerbID, wholeVerbDef);
+					else
+						verbOutput.put(curVerbID, verbOutput.get(curVerbID) + "," + nounID);
+					while (curVerbID.contains(".")) {
+						curVerbID = curVerbID.substring(0, curVerbID.lastIndexOf("."));
+						if (!nounOutput.containsKey(curVerbID))
+							verbOutput.put(curVerbID, null);
+					}
 				}
-				NounOutput.write(line[0] + " " + line[5] + "\n");
 			}
 		}
-		NounOutput.close();
-		System.out.println("finished");
+		for (Object verb : allVerbLines.toArray()) {// verb is a long String
+			String id = ((String) verb).split(" ")[0];
+			if (verbOutput.containsKey(id)) {
+				if (verbOutput.get(id) == null) {
+					String[] verbFragments = ((String) verb).split(" ");
+					verbWriter.write("-" + verbFragments[0] + " " + verbFragments[5]+ "\n");
+				} else
+					verbWriter.write(verbOutput.get(id)+ "\n");
+			}
+		}
+		 verbWriter.close();
+		System.out.println("Success");
 	}
 }
