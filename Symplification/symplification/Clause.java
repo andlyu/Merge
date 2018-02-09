@@ -15,7 +15,7 @@ public class Clause {
 
 	private static final String ADJ_FILE = null; // "random-text-gen-master/src/main/java/Adjective.txt";
 	private static final String PREP_FILE = null; // "random-text-gen-master/src/main/java/Preposition.txt";
-	private static final String NOUN_FILE = "Text Files/Encyclopedia Nouns.txt";//"random-text-gen-master/src/main/java/NounSymple.txt";
+	private static final String NOUN_FILE = "Text Files/Encyclopedia Nouns.txt";// "random-text-gen-master/src/main/java/NounSymple.txt";
 	private static final String VERB_FILE = "Text Files/Encyclopedia Verbs.txt";// "random-text-gen-master/src/main/java/VerbSymple.txt";
 
 	private NounPhrase classNoun;
@@ -95,13 +95,14 @@ public class Clause {
 						System.out.println(c.toString());
 					}
 				}
+				continue;
 				// d.adjClause();
 			} else if (d.getObjectNoun() != null)
 				d = new Clause(d.getObjectNoun());
-			else if (Math.random() < .5) {
+			else /*if (Math.random() < .5) {
 
 				d = new Clause(d.getClassNoun());
-			} else {
+			} else*/ {
 				System.out.println();
 				d = new Clause();
 			}
@@ -173,8 +174,9 @@ public class Clause {
 			// changing preposition
 			if (classVerb.canHavePreposition() && classNoun.canHavePreposition()) {
 				classPrep = new PrepPhrase(classVerb, classNoun);
-			if (Math.random() < .5)
-				sent.addComplement(classPrep.getPrepPhrase());}
+				if (Math.random() < .5)
+					sent.addComplement(classPrep.getPrepPhrase());
+			}
 
 			/*
 			 * if(v2.getClassVerb().contains("/"))// temporary { int prepI = (int)(
@@ -249,8 +251,9 @@ public class Clause {
 		}
 		if (classNoun.canHavePreposition() && classVerb.canHavePreposition()) {
 			classPrep = new PrepPhrase(classVerb, classNoun);
-		if (Math.random() < .5)
-			sent.addComplement(classPrep.getPrepPhrase());}
+			if (Math.random() < .5)
+				sent.addComplement(classPrep.getPrepPhrase());
+		}
 
 	}
 

@@ -52,7 +52,6 @@ public class VerbPhrase {
 			phrase = oneVerb();
 		} catch ( Exception e) {
 			e.printStackTrace();
-			System.out.println("manyNounSbjs() is Wrong");
 		}
 	}
 
@@ -66,14 +65,15 @@ public class VerbPhrase {
 	public static void main(String[] args){
 		for (int i = 0; i < 100; i++) {
 			VerbPhrase a = new VerbPhrase();
-			a.verbOnNoun("7.3.1 one");
 			SPhraseSpec p = nlgFactory.createClause(null, a.getPhrase());
 			System.out.println(i + "   " + realiser.realiseSentence(p));
 		}
 	}
 
 	private String oneVerb()   {
-		classVerb = ranVerb(new String[] { "1", "2" }, true);
+		//classVerb = ranVerb(new String[] { "1", "2" }, true);
+		classVerb = ranVerb(new String[] { "0" }, true);
+
 		return classVerb.split(" ")[1];
 	}
 
@@ -177,6 +177,11 @@ public class VerbPhrase {
 	// pre:: a are the id's of the beginning of ID's of verbs,
 	// if whole then returns the whole identity of teh verb
 	// retruns an verb out of an array of array a
+	/**
+	 * @param a are the id's of the beginning of ID's of verbs,
+	 * @param whole if whole then returns the whole identity of teh verb
+	 * @return an verb out of an array of array a
+	 */
 	public static String ranVerb(String[] a, boolean whole)   {
 		Scanner input = null;
 		try {
