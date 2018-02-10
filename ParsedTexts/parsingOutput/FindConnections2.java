@@ -94,79 +94,12 @@ public class FindConnections2 {
 			Phrase root = new Phrase(line, iD++);
 			queue.add(root);
 			tree.addPhrase(null, root);
-			tree = createTreeFromLine(tree, queue);//TODO Merge doesn't work quite right with these two methods
-			nouns = fillNounsWithVerbs(tree, nouns, wholeVerbCollecton, wholeVerbCollecton);
-			/*while (queue.size() != 0) {
-				{
-					Phrase parent = queue.poll();
-					line = parent.getPhrase();
-					int stop = line.length();
-					int start = 0;// start of a phrase (after the opening parenthesy)
-					int index = start; // to travers through the characters
-					int countParen = 0;
-					while (line.substring(index).indexOf("(") >= 0)// while has another phrase
-					{
-
-						if (countParen == 0) {
-							while (line.charAt(index) != '(') {
-								index++;
-							}
-							start = index++;
-						} // finds the first "(" and sets start to it
-						countParen = 1;
-						while (countParen > 0 && index < stop) {
-							if (line.charAt(index) == '(')
-								countParen++;
-							else if (line.charAt(index) == ')')
-								countParen--;
-							index++;
-						} // finds where the phrase inds (the ending ")")
-						String phraseString = "";
-						if (countParen == 0)
-							phraseString = line.substring(start, index);// next Line will crash if index>stop;
-						Phrase phrase = new Phrase(phraseString, iD++);// phrase to be added to the stack
-						tree.addPhrase(parent, phrase);
-						if (phrase.getPhrase().contains("("))
-							queue.add(phrase);
-						else
-							start = index;
-
-					}
-				}
-			}
-			for (Node a : tree.getArrayList()) {
-				if ("S".equals(((Phrase) a.getPhrase()).getTag()) && !containsChildS(a)) {
-					Node noun = getNounChild(a);
-					Node verb = getVerbChild(a);
-					while (noun != null && getNounChild(noun) != null) {
-						noun = getNounChild(noun);
-					}
-					while (verb != null && getVerbChild(verb) != null)
-						verb = getVerbChild(verb);
-					if (noun != null && verb != null)
-						if (!noun.toString().contains("(") && !verb.toString().contains("(")) {
-							String wordNoun = noun.getPhrase().toString().toLowerCase();
-							String wordVerb = verb.getPhrase().toString().toLowerCase();
-							if (wholeNounCollecton.contains(wordNoun) && wholeVerbCollecton.contains(wordVerb)) {
-								if (nouns.get(wordNoun) != null) {
-									NounWithVerbs curNoun = nouns.get(wordNoun);
-									curNoun.addVerb(wordVerb);
-									nouns.put(wordNoun, curNoun);
-								} else {
-									NounWithVerbs curNoun = new NounWithVerbs(wordNoun);
-									curNoun.addVerb(wordVerb);
-									nouns.put(wordNoun, curNoun);
-								}
-							}
-						}
-				}
-
-			}*/
-
+			tree = createTreeFromLine(tree, queue);
+			nouns = fillNounsWithVerbs(tree, nouns, wholeNounCollecton, wholeVerbCollecton);
 		}
-		for (String a : nouns.keySet()) {
-			System.out.println(nouns.get(a));
-		}
+		// for (String a : nouns.keySet()) {
+		// System.out.println(nouns.get(a));
+		// }
 		return nouns;
 	}
 
@@ -231,10 +164,10 @@ public class FindConnections2 {
 	 *            - Info from Big Nouns FILE
 	 * @param wholeVerbCollecton
 	 *            - Info from Big VErbs FILE
-	 * @return adds the information gathered from the tree to Nouns, checking
-	 *         with wholeNoun&VerbCollections
+	 * @return adds the information gathered from the tree to Nouns, checking with
+	 *         wholeNoun&VerbCollections
 	 */
-	private static HashMap<String, NounWithVerbs> fillNounsWithVerbs(Tree<Phrase> tree,
+	private static HashMap<String, NounWithVerbs> fillNounsWithVerbs(Tree<Phrase> tree, // TODO second methode
 			HashMap<String, NounWithVerbs> nouns, HashSet<String> wholeNounCollecton,
 			HashSet<String> wholeVerbCollecton) {
 		for (Node a : tree.getArrayList()) {// What does this do??
@@ -250,8 +183,8 @@ public class FindConnections2 {
 					if (!noun.toString().contains("(") && !verb.toString().contains("(")) {
 						String wordNoun = noun.getPhrase().toString().toLowerCase();
 						String wordVerb = verb.getPhrase().toString().toLowerCase();
-						System.out.print("Noun: " + noun.getPhrase());
-						System.out.println(" Verb: " + verb.getPhrase());
+						// System.out.print("Noun: " + noun.getPhrase());
+						// System.out.println(" Verb: " + verb.getPhrase());
 						if (wholeNounCollecton.contains(wordNoun) && wholeVerbCollecton.contains(wordVerb)) {
 							if (nouns.get(wordNoun) != null) {
 								NounWithVerbs curNoun = nouns.get(wordNoun);

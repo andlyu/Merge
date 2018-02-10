@@ -17,7 +17,7 @@ public class Merge {
 	public static final String VERB_OUT_FILE = "Text Files/Encyclopedia Verbs.txt";
 
 	/**
-	 * @param args
+	 * @param args just the main runner class
 	 */
 	public static void main(String[] args) {
 		HashMap<String, NounWithVerbs> connectionMap = FindConnections2.infoFromParsed();
@@ -59,7 +59,7 @@ public class Merge {
 			/*
 			 * go through the nousn add the noun&predisecor to the output Nouns run through
 			 * nouns, if the current is outNouns print it out: !!!
-			 */// TODO SOME NOUNS REPEAT IN BIG NOUNS
+			 */
 				// TODO what if some stuff already has a negative: double negative
 			if (nounLines.containsKey(a)) {
 				String curNounID = nounLines.get(a).split(" ")[0];
@@ -73,7 +73,7 @@ public class Merge {
 			}
 		}
 
-		for (String a : connectionMap.keySet()) {
+		for (String a : connectionMap.keySet()) {//a is a noun in a connection
 			// add all verbs and their predisesors
 			/*
 			 * go through the connections add the verb&predisecor to the verbOutput
@@ -84,6 +84,12 @@ public class Merge {
 				if (verbLines.containsKey(verb)) {
 					String[] verbLineFrags = verbLines.get(verb).split(" "); // verbLineFragments
 					String curVerbID = verbLineFrags[0];
+					if(connectionMap.containsKey("forecast"))
+						System.out.println("contains");
+					System.out.println(nounLines.get(a) +" "+ a);
+					if(!nounLines.containsKey(a)) {
+						System.out.println(a+ "nnoe");
+					}
 					String nounID = nounLines.get(a).split(" ")[0];
 					String wholeVerbDef = verbLineFrags[0] + " " + verbLineFrags[5]+ " " + nounID;
 					if (!verbOutput.containsKey(curVerbID) || verbOutput.get(curVerbID) == null)
