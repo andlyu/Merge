@@ -8,6 +8,7 @@ public class FindConnections2 {
 	public static final String NOUN_FILE = "ParsedTexts/Big Nouns.txt";
 	public static final String ENCYCLOPEDIA = "ParsedTexts/World-Book-Encyclopedia.txt";
 	public static final String ALL_WORD_OUT = "ParsedTexts/AllWords.txt";
+	public static final String HARRY_POTTER = "ParsedTexts/texts/All JK Rowling";
 
 	public static void main(String[] args) throws IOException {
 		mainMethodised();
@@ -29,7 +30,7 @@ public class FindConnections2 {
 			writer = new BufferedWriter(new FileWriter(ALL_WORD_OUT));
 			nounInput = new Scanner(new FileReader(NOUN_FILE));
 			verbInput = new Scanner(new FileReader(VERB_FILE));
-			input = new Scanner(new FileReader(ENCYCLOPEDIA));
+			input = new Scanner(new FileReader(HARRY_POTTER));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,6 +61,11 @@ public class FindConnections2 {
 	}
 
 	public static HashMap infoFromParsed() {
+		return infoFromParsed(ENCYCLOPEDIA,false);
+	}
+
+	
+	public static HashMap infoFromParsed(String file,boolean append) {
 		Scanner input = null;
 		Scanner verbInput = null;
 		BufferedWriter writer = null; // new BufferedWriter(new FileWriter(ALL_WORD_OUT));
@@ -69,9 +75,9 @@ public class FindConnections2 {
 
 		try {
 			verbInput = new Scanner(new FileReader(VERB_FILE));
-			writer = new BufferedWriter(new FileWriter(ALL_WORD_OUT));
+			writer = new BufferedWriter(new FileWriter(ALL_WORD_OUT,append)); // appends the file
 			nounInput = new Scanner(new FileReader(NOUN_FILE));
-			input = new Scanner(new FileReader(ENCYCLOPEDIA));
+			input = new Scanner(new FileReader(file));
 
 		} catch (Exception e) {
 			e.printStackTrace();
