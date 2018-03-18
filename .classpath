@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="ParsedTexts"/>
 	<classpathentry kind="src" path="random-text-gen-master/src/main/java"/>
 	<classpathentry kind="src" path="random-text-gen-master/src/test/java"/>
 	<classpathentry kind="src" path="Symplification"/>
 	<classpathentry kind="src" path="Merge"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="Eclipse/bin"/>
 </classpath>

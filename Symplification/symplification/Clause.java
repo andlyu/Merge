@@ -99,10 +99,11 @@ public class Clause {
 				// d.adjClause();
 			} else if (d.getObjectNoun() != null)
 				d = new Clause(d.getObjectNoun());
-			else /*if (Math.random() < .5) {
-
-				d = new Clause(d.getClassNoun());
-			} else*/ {
+			else /*
+					 * if (Math.random() < .5) {
+					 * 
+					 * d = new Clause(d.getClassNoun()); } else
+					 */ {
 				System.out.println();
 				d = new Clause();
 			}
@@ -138,7 +139,6 @@ public class Clause {
 		try {
 			VerbPhrase v2 = new VerbPhrase();
 			classVerb = v2; // Sets classVerb
-			System.out.println(v2);
 			SPhraseSpec p;
 			// SPhraseSpec dep = null;
 			if (posNouns(v2.getClassVerb()).contains("-"))// if(verb is transitive)
