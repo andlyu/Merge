@@ -7,10 +7,10 @@ import java.util.*;
 import java.io.*;
 
 
-
 public class Sentance {
-   private static String classNoun;
 
+	private static String classNoun;
+	String path = Path.
    private static Lexicon lexicon = Lexicon.getDefaultLexicon();
    private static NLGFactory nlgFactory = new NLGFactory(lexicon);
    private static Realiser realiser = new Realiser(lexicon);
@@ -19,8 +19,8 @@ public class Sentance {
    
       for(int i = 0; i<50; i++)
       {
-         SPhraseSpec ind = makeSentance();
-      
+         SPhraseSpec ind = makeSentance();	
+         	
              
         // ind.addComplement(dep);
          String output = realiser.realiseSentence(ind);
