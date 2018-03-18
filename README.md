@@ -5,6 +5,7 @@ I used Stanford's NLP to phrase structure trees, to extract nouns and verbs. (gr
 I used Princeton's Word Net 2.1 for a large database of organised words<br/>
 I parsed through the JK Rowling's Harry Potter series as my sample text.
 
+<<<<<<< HEAD
 Most of the work is in Symplification Class because I hoped that implementing this into symple sentances would end up with near 100% accuracy. Here is what I got:<br/>
 Symplification>Symplification>Clause.java<br/>
 
@@ -76,3 +77,5 @@ Some possible errors are if the project doesn't build correctly....<br/>
 
 	
 
+=======
+>>>>>>> branch 'master' of https://github.com/andlyu/Merge.git
