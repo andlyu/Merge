@@ -1,12 +1,11 @@
 # Merge
-This is where I merged the NLP with the Random-Text-Gen 
-Credit<br/>
-I used Stanford's NLP to phrase structure trees, to extract nouns and verbs. (great school, wish I got in)<br/>
-I used Princeton's Word Net 2.1 for a large database of organised words<br/>
-I parsed through the JK Rowling's Harry Potter series as my sample text.
+Merging NLP with the Random-Text-Gen 
 
-<Head>
-Most of the work is in Symplification Class because I hoped that implementing this into symple sentances would end up with near 100% accuracy. Here is what I got:<br/>
+### Description
+As I was working on [random-text-gen](https://github.com/andlyu/random-text-gen), I ran into the issue that hard coding a database for words would have too many human errors and would take too long. My goal with this project was to have NLP process throuhg texts to create a database that would work with my random-text-gen program. Used [Word Net's](https://wordnet.princeton.edu/) organisation to organise words with their iDs to create the database format. Then I used [Stanford's NLP](https://nlp.stanford.edu/) to process the Harry Potter Series and World Book Encyclopedias for their subject of each sentance and for the verb. When I added that data into my database, the DEMO shows what I got. The next step would be to find the objects, but that would increase inacuracy because many subjects and objects come in phrases, and only the nouns makes the sentance nonsencial. <br/>
+This could be fun to play around with, but I think using Tensorflow would be more practical. 
+	
+### DEMO
 Symplification>Symplification>Clause.java<br/>
 
 	A spell reawakens.
@@ -66,10 +65,20 @@ Symplification>Symplification>Clause.java<br/>
 	A one gets.
 	A mind wanders.
 	The number and a dead tarnish.
-	I used this in Eclipse, so it should be compatible with it.
-Some possible errors are if the project doesn't build correctly....<br/>
+	
+	
+### Work Cited
+I used Stanford's NLP to phrase structure trees, to extract nouns and verbs. (great school, wish I got in)<br/>
+I used Princeton's Word Net 2.1 for a large database of organised words<br/>
+I parsed through the JK Rowling's Harry Potter series as my sample text.
+
+### instalation
+This project is intended to run in Eclipse, but I encountered some challanges with instalation<br/>
+Here are some possible errors are if the project doesn't build correctly....<br/>
 	
 	1) right click project -> Properties -> Java Build Path -> Libraries
 	2) remove Java JDK
 	3) step 1, import java JDK
 	4) right click project -> build path
+	
+
